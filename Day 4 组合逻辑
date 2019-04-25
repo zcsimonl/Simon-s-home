@@ -1,0 +1,43 @@
+1.什么是竞争与冒险（from 宁河川 你要的FGPA笔面试题都在这里了）
+定义：
+  信号由于经由不同路径传输达到某一汇合点的时间有先有后的现象，就称之为竞争，由于竞争现象所引起的电路输出发生瞬间错误的现象，就称之为冒险。
+    
+消除冒险竞争的方法：
+  加滤波电容，消除毛刺的影响
+  加选通信号，避开毛刺
+  增加冗余项，消除逻辑冒险。
+  
+  2.设计一个2-4译码器
+  module Decode_2_4(
+    input       [1:0]   indata,
+    input               enable_n,
+	//output  reg [3:0]   outdata
+	output      [3:0]   outdata
+);
+
+
+always @(*)begin
+    if(enable_n == 1'b1)
+        outdata = 4'b1111;
+    else begin
+        case(indata)
+        2'b00: outdata = 4'b1110;
+        2'b01: outdata = 4'b1101;
+        2'b10: outdata = 4'b1011;
+        2'b11: outdata = 4'b0111;
+        endcase
+         end
+            end
+  endmodule
+  
+  3.输入一个8bit数，输出其中1的个数。如果只能使用1bit全加器，最少需要几个？（参考halftop的答案 ：https://forum.allaboutcircuits.com/threads/count-number-of-logic-1s-in-7-bit-number.49821/）
+  module test_20(
+	input 	[7:0]	i_data,
+	output	[2:0]	o_count
+);
+assign o_count = ( ( (i_data[0] + i_data[1]) + (i_data[2] + i_data[3]) ) + ( (i_data[4] +  i_data[5]) + (i_data[6] + i_data[7]) ) );
+
+endmodule
+
+4. 使用2输入mux(o = s ？a ：b;)，TIEH(输出常数1)，TIEL(输出常数0)实现以下功能。
+题目看不懂。
